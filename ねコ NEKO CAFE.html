@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ねコ | 與貓有約 - 療癒系貓咪咖啡廳</title>
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neko-beige': '#F5EBE0',
+                        'neko-dark': '#8B5E3C',
+                        'neko-accent': '#E29578',
+                        'neko-green': '#606C38',
+                        'neko-paper': '#FFFDFB',
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'modern': '1.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #F5EBE0; color: #4A3F35; }
+        .hero-title { font-family: 'Noto Serif TC', serif; }
+        /* 輪播動畫樣式 */
+        .carousel-item { opacity: 0; transition: opacity 1s ease-in-out; }
+        .carousel-item.active { opacity: 1; }
+        /* 隱藏捲軸但保持滾動 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* 改進的圖片佔位樣式 */
+        .img-container { 
+            position: relative; 
+            background-color: #e5e7eb; 
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-container::before {
+            content: "Loading...";
+            position: absolute;
+            color: #9ca3af;
+            font-size: 0.75rem;
+        }
+        .img-container img {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 導航欄 -->
+    <nav class="fixed w-full z-50 bg-neko-beige/80 backdrop-blur-md border-b border-neko-dark/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="hero-title text-2xl font-bold text-neko-dark tracking-tighter">ねコ <span class="text-sm font-normal">NEKO CAFE</span></a>
+            
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-neko-accent transition">品牌故事</a>
+                <a href="#menu" class="hover:text-neko-accent transition">精選菜單</a>
+                <a href="#cats" class="hover:text-neko-accent transition">貓咪成員</a>
+                <a href="#rules" class="hover:text-neko-accent transition">互動守則</a>
+            </div>
+
+            <a href="#booking" class="bg-neko-accent text-white px-6 py-2.5 rounded-modern font-bold text-sm hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                立即預約
+            </a>
+        </div>
+    </nav>
+
+    <!-- 首屏區塊 (Hero Section) -->
+    <header class="relative h-screen overflow-hidden bg-black">
+        <div id="hero-carousel" class="absolute inset-0">
+            <div class="carousel-item active absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=60&w=1200" class="w-full h-full object-cover opacity-60" alt="[溫暖的貓咪]" onerror="handleImgError(this, '貓咪夥伴')">
+            </div>
+            <div class="carousel-item absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=60&w=1200" class="w-full h-full object-cover opacity-60" alt="[咖啡與甜品]" onerror="handleImgError(this, '精緻下午茶')">
+            </div>
+        </div>
+
+        <div class="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 text-center">
+            <h1 class="hero-title text-5xl md:text-7xl mb-6 tracking-wide drop-shadow-md">與貓有約</h1>
+            <p class="text-lg md:text-2xl mb-10 max-w-2xl font-light opacity-90">讓貓咪及溫暖的咖啡甜品療育你的心</p>
+            <button onclick="document.getElementById('booking').scrollIntoView()" class="bg-neko-accent hover:bg-white hover:text-neko-accent text-white px-10 py-4 rounded-modern font-bold text-lg transition-all shadow-2xl">
+                立即開始預約
+            </button>
+        </div>
+    </header>
+
+    <!-- 精選菜單區塊 -->
+    <section id="menu" class="py-24 px-6 bg-neko-beige">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-4xl text-neko-dark">療育系菜單</h2>
+                <div class="h-1 w-20 bg-neko-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 菜單卡片 1 -->
+                <div class="bg-white p-6 rounded-modern shadow-sm hover:shadow-xl transition-all group border border-neko-dark/5">
+                    <div class="overflow-hidden rounded-2xl mb-4 img-container h-64">
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=800" 
+                             class="group-hover:scale-110 transition duration-500" 
+                             alt="[琥珀手沖拿鐵]" 
+                             loading="lazy"
+                             onerror="handleImgError(this, '琥珀拿鐵')">
+                    </div>
+                    <h3 class="text-xl font-bold text-neko-dark mb-2">琥珀手沖拿鐵</h3>
+                    <p class="text-gray-500 text-sm">選用淺烘焙衣索比亞豆，口感絲滑帶有微酸花果香調。</p>
+                </div>
+                <!-- 菜單卡片 2 -->
+                <div class="bg-white p-6 rounded-modern shadow-sm hover:shadow-xl transition-all group border border-neko-dark/5">
+                    <div class="overflow-hidden rounded-2xl mb-4 img-container h-64">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80&w=800" 
+                             class="group-hover:scale-110 transition duration-500" 
+                             alt="[熔岩朱古力戚風]" 
+                             loading="lazy"
+                             onerror="handleImgError(this, '戚風蛋糕')">
+                    </div>
+                    <h3 class="text-xl font-bold text-neko-dark mb-2">熔岩朱古力戚風</h3>
+                    <p class="text-gray-500 text-sm">濃郁的可可香氣搭配流心朱古力醬，每一口都是深度的甜蜜療育。</p>
+                </div>
+                <!-- 菜單卡片 3 -->
+                <div class="bg-white p-6 rounded-modern shadow-sm hover:shadow-xl transition-all group border border-neko-dark/5">
+                    <div class="overflow-hidden rounded-2xl mb-4 img-container h-64">
+                        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=800" 
+                             class="group-hover:scale-110 transition duration-500" 
+                             alt="[靜岡抹茶拿鐵]" 
+                             loading="lazy"
+                             onerror="handleImgError(this, '抹茶拿鐵')">
+                    </div>
+                    <h3 class="text-xl font-bold text-neko-dark mb-2">棉花糖貓咪抹茶</h3>
+                    <p class="text-gray-500 text-sm">特選靜岡抹茶搭配厚實奶霜，上層漂浮可愛貓咪棉花糖。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 互動守則區塊 (優化設計) -->
+    <section id="rules" class="py-24 px-6 bg-neko-paper">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="hero-title text-4xl text-neko-dark tracking-tight">互動守則</h2>
+                <p class="mt-4 text-neko-dark/60 font-light italic">Harmony between cats and humans</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                <!-- 守則 01 -->
+                <div class="flex items-start space-x-6">
+                    <span class="hero-title text-4xl text-neko-accent/40 font-bold leading-none">01</span>
+                    <div>
+                        <h4 class="text-xl font-bold text-neko-dark mb-2">保持輕聲細語</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">貓咪擁有極其敏銳的聽覺，請在此空間內調低音量，避免大聲喧嘩或突發尖叫，讓彼此都能享受安靜的午后。</p>
+                    </div>
+                </div>
+                <!-- 守則 02 -->
+                <div class="flex items-start space-x-6">
+                    <span class="hero-title text-4xl text-neko-accent/40 font-bold leading-none">02</span>
+                    <div>
+                        <h4 class="text-xl font-bold text-neko-dark mb-2">禁止餵食外食</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">為了守護夥伴們的健康，嚴禁給予貓咪人類的食物或飲料。若想體驗餵食，可向櫃檯詢問店內專用點心。</p>
+                    </div>
+                </div>
+                <!-- 守則 03 -->
+                <div class="flex items-start space-x-6">
+                    <span class="hero-title text-4xl text-neko-accent/40 font-bold leading-none">03</span>
+                    <div>
+                        <h4 class="text-xl font-bold text-neko-dark mb-2">請關閉閃光燈</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">捕捉貓咪的身影時，請務必關閉閃光燈，強烈的光線會對貓咪脆弱的視網膜造成永久性的傷害。</p>
+                    </div>
+                </div>
+                <!-- 守則 04 -->
+                <div class="flex items-start space-x-6">
+                    <span class="hero-title text-4xl text-neko-accent/40 font-bold leading-none">04</span>
+                    <div>
+                        <h4 class="text-xl font-bold text-neko-dark mb-2">尊重睡眠權利</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">睡眠是貓咪重要的生理需求。當他們在休息時，請靜靜觀賞而不強行喚醒、抱取，尊重每一位夥伴的獨處時光。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 貓咪成員展示 -->
+    <section id="cats" class="py-24 px-6 bg-neko-beige">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="hero-title text-3xl text-neko-dark mb-8 text-center">認識我們的夥伴</h2>
+            <div class="flex gap-6 overflow-x-auto pb-8 no-scrollbar">
+                <div class="min-w-[280px] bg-white rounded-modern overflow-hidden shadow-md">
+                    <div class="h-64 img-container">
+                        <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&q=60&w=600" alt="[橘貓 蜜糖]" onerror="handleImgError(this, '貓咪蜜糖')">
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-neko-accent/10 text-neko-accent text-xs px-2 py-1 rounded">公關經理</span>
+                        <h3 class="text-xl font-bold mt-2">蜜糖 (Honey)</h3>
+                        <p class="text-gray-400 text-sm mt-1 italic">「最愛大腿的暖男。」</p>
+                    </div>
+                </div>
+                <div class="min-w-[280px] bg-white rounded-modern overflow-hidden shadow-md">
+                    <div class="h-64 img-container">
+                        <img src="https://images.unsplash.com/photo-1513245543132-31f507417b26?auto=format&fit=crop&q=60&w=600" alt="[白貓 雪球]" onerror="handleImgError(this, '貓咪雪球')">
+                    </div>
+                    <div class="p-6">
+                        <span class="bg-neko-accent/10 text-neko-accent text-xs px-2 py-1 rounded">冰山美人</span>
+                        <h3 class="text-xl font-bold mt-2">雪球 (Snow)</h3>
+                        <p class="text-gray-400 text-sm mt-1 italic">「想摸我？先看心情吧。」</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 預約表單 -->
+    <section id="booking" class="py-24 px-6 bg-neko-paper">
+        <div class="max-w-xl mx-auto bg-white p-10 rounded-modern shadow-2xl">
+            <h2 class="hero-title text-3xl text-center text-neko-dark mb-10">預約您的療育時光</h2>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">您的姓名</label>
+                    <input type="text" placeholder="例：林先生" class="w-full px-4 py-3 rounded-modern border-none bg-neko-beige/30 focus:ring-2 focus:ring-neko-accent transition">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">日期</label>
+                        <input type="date" class="w-full px-4 py-3 rounded-modern border-none bg-neko-beige/30 focus:ring-2 focus:ring-neko-accent transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">人數</label>
+                        <select class="w-full px-4 py-3 rounded-modern border-none bg-neko-beige/30 focus:ring-2 focus:ring-neko-accent transition">
+                            <option>1 位</option>
+                            <option>2 位</option>
+                            <option>3 位</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="w-full bg-neko-dark text-white py-4 rounded-modern font-bold hover:bg-neko-accent transition-all">確認預約</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-neko-dark text-neko-beige py-12 px-6 text-center">
+        <h3 class="hero-title text-2xl mb-4">ねコ NEKO CAFE</h3>
+        <p class="text-sm opacity-70">台北市中山區療育街 22 巷 5 號</p>
+        <p class="mt-8 text-[10px] opacity-40">© 2024 NEKO CAFE. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function handleImgError(image, text) {
+            image.onerror = null; 
+            const container = image.parentElement;
+            container.style.backgroundColor = '#d5c5b5'; 
+            image.style.display = 'none';
+            
+            const label = document.createElement('div');
+            label.className = 'absolute inset-0 flex items-center justify-center text-neko-dark font-bold text-center p-4';
+            label.innerText = text;
+            container.appendChild(label);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.carousel-item');
+            let current = 0;
+            setInterval(() => {
+                items[current].classList.remove('active');
+                current = (current + 1) % items.length;
+                items[current].classList.add('active');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
